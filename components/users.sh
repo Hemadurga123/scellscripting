@@ -33,4 +33,4 @@ mv users-main users  && cd users && mvn clean  package
 #Check $?
 
 #Head "setup the service with systemctl"
-mv /home/ubuntu/users/systemd.service /etc/systemd/system/users.service && systemctl daemon-reload && systemctl start users && systemctl enable users
+mv /home/ubuntu/users/systemd.service /etc/systemd/system/systemd .service && systemctl daemon-reload && systemctl start users && systemctl enable users
