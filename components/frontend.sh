@@ -24,10 +24,11 @@ cd /var/www/html/sample/frontend/
 stat $?
 
 Head "Install Npm"
-npm install
+#npm install
 #npm run build
 cd /etc/nginx/sites-available
 #sed -i 's|/var/www/html|/var/www/html/sample/frontend/dist|g' /etc/nginx/sites-available/default
+npm install
 npm build run
 npm start
 
