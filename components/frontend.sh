@@ -12,7 +12,7 @@ git clone https://github.com/zelar-soft-todoapp/frontend.git
 cd  /var/www/html/jio/frontend
 npm install
 cd /etc/nginx/sites-available/
-sed -i 's|/var/www/html|/var/www/html/frontend/dist|g' /etc/nginx/sites-available/default
+sed -i 's|/var/www/html|/var/www/html/jio/frontend/dist|g' /etc/nginx/sites-available/default
 #vim default
 cd /var/www/html/jio/frontend/
 npm install
