@@ -13,7 +13,7 @@ apt install maven -y
 #Check $?
 
 #Head "fetch git code"
-git clone https://github.com/zelar-soft-todoapp/users.git
+git clone https://github.com/Hemadurga123/users.git
 
 #Head "entering into the directory"
 cd users && mvn clean package
