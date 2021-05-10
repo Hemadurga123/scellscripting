@@ -29,5 +29,4 @@ mv users-api-0.0.1.jar users.jar
 #Check $?
 
 #Head "setup the service with systemctl"
-mv /root/users/systemd.service /etc/systemd/system/users.service && systemctl daemon-reload && systemctl start users && systemctl enable users
-#Check $?
+mv /home/ubuntu/users/systemd.service /etc/systemd/system/users.service && systemctl daemon-reload && systemctl start users && systemctl enable users &>>LOG#Check $?
