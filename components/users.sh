@@ -19,8 +19,7 @@ git clone https://github.com/Hemadurga123/users.git
 #cd users && mvn clean package
 #Check $?
 
-wget https://github.com/Hemadurga123/users/archive/refs/heads/main.zip
-unzip main.zip
+wget https://github.com/Hemadurga123/users/archive/refs/heads/main.zip && unzip main.zip
 
 mv users-main users  && cd users && mvn clean  package
 
