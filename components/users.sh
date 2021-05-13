@@ -1,36 +1,28 @@
 #!/bin/bash
 
-#source components/common.sh
-#OS_PREREQ
+source components/common.sh
+OS_PREREQ
 
-apt update
-#Head "install java version java-8"
-apt install openjdk-8-jdk -y
-#Check $?
-
-#Head "Install maven"
-apt install maven -y
-#Check $?
-
-#Head "fetch git code"
-git clone https://github.com/Hemadurga123/users.git
-
-#Head "entering into the directory"
-#cd users && mvn clean package
-#Check $?
-
-wget https://github.com/Hemadurga123/users/archive/refs/heads/main.zip && unzip main.zip
-
-mv users-main users  && cd users && mvn clean  package
-
-#Head "entering into the directory"
-#cd target
-#Check $?
+Head "Installing Java and Maven"
+apt install openjdk-8-jdk -y &>>$LOG && apt install maven -y &>>$LOG
+stat $?
 
 
-#Head "moving the directory"
-#mv users-api-0.0.1.jar users.jar
-#Check $?
+Head "Downloading the component"
+cd /root/
+git clone https://github.com/PradeepreddyKapa/users.git &>>$LOG && cd users
+rm -rf /etc/systemd/system/users.service
 
-#Head "setup the service with systemctl"
-mv /home/ubuntu/users/systemd.service /etc/systemd/system/systemd .service && systemctl daemon-reload && systemctl start users && systemctl enable users
+Head "Updating Endpoints"
+mv systemd.service /etc/systemd/system/users.service
+sed -i -e "s/Login_Endpoint/login.eshwarzelarsoft.host/" /etc/systemd/system/users.service
+stat $?
+
+Head "Building the Code"
+mvn clean &>>$LOG && mvn clean package &>>$LOG
+stat $?
+
+Head "Starting the Service"
+systemctl daemon-reload &>>$LOG && systemctl start users && systemctl enable users &>>$LOG
+systemctl status users
+java -jar target/users-api-0.0.1.jar
