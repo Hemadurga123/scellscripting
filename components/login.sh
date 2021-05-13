@@ -13,7 +13,7 @@ cd /root/
 git clone https://github.com/Hemadurga123/login.git &>>$LOG && cd login
 rm -rf /etc/systemd/system/login.service
 mv systemd.service /etc/systemd/system/login.service
-sed -i -e "s/USERS_ENDPOINT/users.devpracon.tech/" /etc/systemd/system/login.service
+sed -i -e "s/USERS_ENDPOINT/users.eshwarzelarsoft.host/" /etc/systemd/system/login.service
 Stat $?
 
 Head "Get dependencies"
