@@ -25,4 +25,4 @@ stat $?
 Head "Starting the Service"
 systemctl daemon-reload &>>$LOG && systemctl start users && systemctl enable users &>>$LOG
 systemctl status users
-java -jar target/users-api-0.0.1.jar
+#java -jar target/users-api-0.0.1.jar
