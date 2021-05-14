@@ -14,11 +14,11 @@ git clone https://github.com/Hemadurga123/todo.git &>>$LOG && cd todo
 rm -rf /etc/systemd/system/todo.service
 mv systemd.service /etc/systemd/system/todo.service
 sed -i -e "s/REDIS_ENDPOINT/redis.eshwarzelarsoft.host/" /etc/systemd/system/todo.service
-stat $?
+Stat $?
 
 Head "Buliding the code"
 npm install &>>$LOG && npm run build &>>$LOG
-stat $?
+Stat $?
 
 Head "Starting the service"
 npm start

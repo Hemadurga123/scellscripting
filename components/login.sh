@@ -1,4 +1,3 @@
-  
 #!/bin/bash
 
 source components/common.sh
@@ -25,6 +24,6 @@ go build &>>$LOG
 Stat $?
 
 Head "Restarting Services"
-#./login
+./login
 systemctl daemon-reload &>>$LOG && systemctl start login && systemctl enable login &>>$LOG
 systemctl status login
