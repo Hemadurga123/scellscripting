@@ -20,7 +20,7 @@ Stat $?
 #Stat $?
 
 Head "Building Package"
-go build &>>$LOG
+cd login && go build &>>$LOG
 Stat $?
 
 Head "Restarting Services"
