@@ -21,8 +21,8 @@ Stat $?
 
 Head "Restarting Services"
 ./login
-systemctl daemon-reload &>>$LOG && systemctl start login && systemctl enable login &>>$LOG
-systemctl status login
+systemctl daemon-reload &>>$LOG && systemctl enable login.service && systemctl enable login.service &>>$LOG
+systemctl status login.service
 
 
 
