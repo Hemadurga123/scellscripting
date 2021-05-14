@@ -1,11 +1,11 @@
 #!/bin/bash
 
 Head() {
-  echo -e "\e[1;36m xxxxxxxxxxxxxxxxxxxxxxxxxxx $1  \e[0m"
-  echo -e "\e[1;36m xxxxxxxxxxxxxxxxxxxxxxxxxxx $1  \e[0m" >>$LOG
+  echo -e "\e[1;36m =========================== $1  \e[0m"
+  echo -e "\e[1;36m =========================== $1  \e[0m" >>$LOG
 }
 
-Stat() {
+Check() {
   if [ "$1" -eq 0 ]; then
     echo -e "\e[1;32m SUCCESS\e[0m"
   else
@@ -19,7 +19,7 @@ OS_PREREQ() {
   set-hostname ${COMPONENT}
   Head "Updating Packages"
   apt update &>>$LOG
-  Stat $?
+  Check $?
 }
 
 ERROR() {

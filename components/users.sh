@@ -3,12 +3,12 @@
 source components/common.sh
 OS_PREREQ
 
-Head "Installing Java and Maven"
+Head "Installing the Java and Maven"
 apt install openjdk-8-jdk -y &>>$LOG && apt install maven -y &>>$LOG
-stat $?
+Check $?
 
 
-Head "Downloading the component"
+Head "Downloading the users component"
 cd /root/
 git clone https://github.com/Hemadurga123/users.git &>>$LOG && cd users
 rm -rf /etc/systemd/system/users.service
@@ -16,13 +16,13 @@ rm -rf /etc/systemd/system/users.service
 Head "Updating Endpoints"
 mv systemd.service /etc/systemd/system/users.service
 sed -i -e "s/Login_Endpoint/login.eshwarzelarsoft.host/" /etc/systemd/system/users.service
-stat $?
+Check $?
 
 Head "Building the Code"
 mvn clean &>>$LOG && mvn clean package &>>$LOG
-stat $?
+Check $?
 
 Head "Starting the Service"
 systemctl daemon-reload &>>$LOG && systemctl start users && systemctl enable users &>>$LOG
 systemctl status users
-#java -jar target/users-api-0.0.1.jar
+java -jar target/users-api-0.0.1.jar
