@@ -1,10 +1,9 @@
 #!/bin/bash
 
 Head() {
-  echo -e "\e[1;36m =========================== $1  \e[0m"
-  echo -e "\e[1;36m =========================== $1  \e[0m" >>$LOG
+  echo -e "\e[1;36m ==================== $1 \e[0m"
+  echo -e "\e[1;36m ==================== $1 \e[0m" &>>$LOG
 }
-
 Check() {
   if [ "$1" -eq 0 ]; then
     echo -e "\e[1;32m SUCCESS\e[0m"
@@ -16,12 +15,18 @@ Check() {
 }
 
 OS_PREREQ() {
+
   set-hostname ${COMPONENT}
-  Head "Updating Packages"
+  Head " updating apt repos "
   apt update &>>$LOG
   Check $?
 }
 
 ERROR() {
   echo -e "\e[1;31m$1\e[0m"
+}
+DOWNLOAD_COMPONENT() {
+  Head "fetching ${COMPONENT} component"
+  curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/Hemadurga123/${COMPONENT}/archive/refs/heads/main.zip"
+  Check $?
 }
