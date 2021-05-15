@@ -17,6 +17,6 @@ Head "Extract Downloaded Archive"
 cd /home/ubuntu && rm -rf users  &&  unzip -o users.zip &>>$LOG && mv users-main users  && cd users && mvn clean package &>>$LOG && mv target/users-api-0.0.1.jar users.jar
 Check $?
 
-#Head "Setup the systemd Service"
-#mv /home/ubuntu/users/systemd.service /etc/systemd/system/users.service && systemctl daemon-reload && systemctl start users && systemctl enable users &>>$LOG
-#Check $?
+Head "Setup the systemd Service"
+mv /home/ubuntu/users/systemd.service /etc/systemd/system/users.service && systemctl daemon-reload && systemctl start users && systemctl enable users &>>$LOG
+Check $?
