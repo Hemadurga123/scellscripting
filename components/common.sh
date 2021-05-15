@@ -28,6 +28,6 @@ ERROR() {
 }
 DOWNLOAD_COMPONENT() {
   Head "fetching ${COMPONENT} component"
-  curl -s -L -o ${COMPONENT}.zip "https://github.com/Hemadurga123/${COMPONENT}/archive/refs/heads/main.zip"
+  curl -s -L -o /tmp/${COMPONENT}.zip "https://github.com/Hemadurga123/${COMPONENT}/archive/refs/heads/main.zip"
   Check $?
 }
