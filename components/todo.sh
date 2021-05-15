@@ -1,26 +1,24 @@
+
 #!/bin/bash
 
 source components/common.sh
 OS_PREREQ
+#DN="zsdevops01.xyz"
 
-
-Head "Installing Npm"
-sudo apt install npm -y &>>$LOG
+Head "Installing Golang"
+apt install golang -y &>>$LOG
 Check $?
 
-Head "Downloading the  todo COMPONENT"
-cd /root/
-git clone https://github.com/Hemadurga123/todo.git &>>$LOG && cd todo
-rm -rf /etc/systemd/system/todo.service
-mv systemd.service /etc/systemd/system/todo.service
-sed -i -e "s/REDIS_ENDPOINT/redis.eshwarzelarsoft.host/" /etc/systemd/system/todo.service
+DOWNLOAD_COMPONENT
+
+Head "Extract Downloaded Archive"
+cd /home/ubuntu && rm -rf login && apt install unzip &>>$LOG  && unzip -o /tmp/login.zip &>>$LOG && mv login-main login && cd /home/ubuntu/login && export GOPATH=/home/ubuntu/go && export GOBIN=$GOPATH/bin && go get &>>$LOG && go build
 Check $?
 
-Head "Buliding the code"
-npm install &>>$LOG && npm run build &>>$LOG
+Head "pass the EndPoints in Service File"
+#sed -i -e "s/user_endpoint/user.${DN}/" /home/ubuntu/login/systemd.service
 Check $?
 
-Head "Starting the service"
-npm start
-systemctl daemon-reload &>>$LOG && systemctl start todo && systemctl enable todo &>>$LOG
-systemctl status todo
+Head "Setup the systemd Service"
+mv /home/ubuntu/login/systemd.service /etc/systemd/system/login.service && systemctl daemon-reload && systemctl start login && systemctl enable login &>>$LOG
+Check $?
