@@ -18,6 +18,6 @@ Check $?
 #sed -i -e "s/user_endpoint/user.${DN}/" /home/ubuntu/login/systemd.service
 #Check $?
 
-Head "Setup the systemd Service"
-mv /home/ubuntu/login/systemd.service /etc/systemd/system/login.service && systemctl daemon-reload && systemctl start login && systemctl enable login &>>$LOG
-Check $?
+#Head "Setup the systemd Service"
+#mv /home/ubuntu/login/systemd.service /etc/systemd/system/login.service && systemctl daemon-reload && systemctl start login && systemctl enable login &>>$LOG
+#Check $?
