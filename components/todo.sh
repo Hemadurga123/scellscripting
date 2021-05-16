@@ -1,24 +1,24 @@
-
 #!/bin/bash
 
 source components/common.sh
 OS_PREREQ
-#DN="zsdevops01.xyz"
+DN="eshwarzelarsoft.host"
 
-Head "Installing Golang"
-apt install golang -y &>>$LOG
+Head "Installing npm"
+apt install npm -y &>>$LOG
 Check $?
 
 DOWNLOAD_COMPONENT
 
 Head "Extract Downloaded Archive"
-cd /home/ubuntu && rm -rf login && apt install unzip &>>$LOG  && unzip -o /tmp/login.zip &>>$LOG && mv login-main login && cd /home/ubuntu/login && export GOPATH=/home/ubuntu/go && export GOBIN=$GOPATH/bin && go get &>>$LOG && go build
+cd /home/ubuntu && rm -rf todo && unzip -o /tmp/todo.zip &>>$LOG && mv todo-main todo  && cd todo && npm install &>>$LOG
 Check $?
 
 Head "pass the EndPoints in Service File"
-#sed -i -e "s/user_endpoint/user.${DN}/" /home/ubuntu/login/systemd.service
+sed -i -e "s/redis-endpoint/redis.${DN}/" /home/ubuntu/todo/systemd.service
 Check $?
 
+
 Head "Setup the systemd Service"
-mv /home/ubuntu/login/systemd.service /etc/systemd/system/login.service && systemctl daemon-reload && systemctl start login && systemctl enable login &>>$LOG
+mv /home/ubuntu/todo/systemd.service /etc/systemd/system/todo.service && systemctl daemon-reload && systemctl start todo && systemctl enable todo &>>$LOG
 Check $?
