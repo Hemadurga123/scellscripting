@@ -11,7 +11,7 @@ Check $?
 DOWNLOAD_COMPONENT
 
 Head "Extract Downloaded Archive"
-cd /home/ubuntu && rm -rf todo && unzip -o /tmp/todo.zip &>>$LOG && mv todo-main todo  && cd todo && npm install &>>$LOG
+cd /home/ubuntu && rm -rf todo && apt install unzip &>>$LOG && unzip -o /tmp/todo.zip &>>$LOG && mv todo-main todo  && cd todo && npm install &>>$LOG
 Check $?
 
 Head "pass the EndPoints in Service File"
