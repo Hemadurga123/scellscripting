@@ -3,7 +3,7 @@
 
 source components/common.sh
 OS_PREREQ
-#DN="zsdevops01.xyz"
+DN="eshwarzelarsoft.host"
 
 Head "Installing Golang"
 apt install golang -y &>>$LOG
@@ -16,7 +16,7 @@ cd /home/ubuntu && rm -rf login && apt install unzip &>>$LOG  && unzip -o /tmp/l
 Check $?
 
 Head "pass the EndPoints in Service File"
-#sed -i -e "s/user_endpoint/user.${DN}/" /home/ubuntu/login/systemd.service
+sed -i -e "s/user_endpoint/users.${DN}/" /home/ubuntu/login/systemd.service
 Check $?
 
 Head "Setup the systemd Service"
