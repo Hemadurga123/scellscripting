@@ -2,7 +2,7 @@
 
 source components/common.sh
 OS_PREREQ
-DN="eshwarzelarsoft.host"
+DNS="eshwarzelarsoft.host"
 
 Head "Installing npm"
 apt install npm -y &>>$LOG
@@ -15,7 +15,7 @@ cd /home/ubuntu && rm -rf todo && apt install unzip &>>$LOG && unzip -o /tmp/tod
 Check $?
 
 Head "pass the EndPoints in Service File"
-sed -i -e "s/redis-endpoint/redis.${DN}/" /home/ubuntu/todo/systemd.service
+sed -i -e "s/redis-endpoint/redis.${DNS}/" /home/ubuntu/todo/systemd.service
 Check $?
 
 
