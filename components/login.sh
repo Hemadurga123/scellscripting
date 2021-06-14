@@ -1,9 +1,8 @@
-
 #!/bin/bash
 
 source components/common.sh
 OS_PREREQ
-DNS="eshwarzelarsoft.host"
+DN="eshwarzelarsoft.host"
 
 Head "Installing Golang"
 apt install golang -y &>>$LOG
@@ -12,11 +11,11 @@ Check $?
 DOWNLOAD_COMPONENT
 
 Head "Extract Downloaded Archive"
-cd /home/ubuntu && rm -rf login && apt install -y unzip &>>$LOG && unzip -o /tmp/login.zip &>>$LOG && mv login-main login && cd /home/ubuntu/login && export GOPATH=/home/ubuntu/go && export GOBIN=$GOPATH/bin && go get &>>$LOG && go build
+cd /home/ubuntu && rm -rf login && unzip -o /tmp/login.zip &>>$LOG && mv login-main login && cd /home/ubuntu/login && export GOPATH=/home/ubuntu/go && export GOBIN=$GOPATH/bin && go get &>>$LOG && go build
 Check $?
 
 Head "pass the EndPoints in Service File"
-sed -i -e "s/user_endpoint/users.${DNS}/" /home/ubuntu/login/systemd.service
+sed -i -e "s/user_endpoint/user.${DN}/" /home/ubuntu/login/systemd.service
 Check $?
 
 Head "Setup the systemd Service"
