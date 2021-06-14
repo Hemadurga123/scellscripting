@@ -20,6 +20,6 @@ sed -i -e "s/redis-endpoint/redis.${DN}/" /home/ubuntu/todo/systemd.service
 Check $?
 
 
-Head "Setup the systemd Service"
+Head "Setuping  the systemd Service"
 mv /home/ubuntu/todo/systemd.service /etc/systemd/system/todo.service && systemctl daemon-reload && systemctl start todo && systemctl enable todo &>>$LOG
 Check $?

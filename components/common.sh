@@ -17,7 +17,7 @@ Check() {
 OS_PREREQ() {
 
   set-hostname ${COMPONENT}
-  Head " updating apt repos "
+  Head " updating  the apt repos "
   apt update &>>$LOG
   Check $?
 }

@@ -23,7 +23,7 @@ Head "Update Nginx Configuration"
 sed -i 's|/var/www/html|/var/www/html/vue/frontend/dist|g' /etc/nginx/sites-enabled/default
 Check $?
 
-Head "update frontend configuration"
+Head "updating frontend configuration"
 cd /var/www/html/vue/frontend  && sudo npm install --unsafe-perm sass sass-loader node-sass wepy-compiler-sass &>>$LOG && npm run build &>>$LOG
 Check $?
 
