@@ -16,7 +16,7 @@ cd /home/ubuntu && rm -rf login && apt install -y unzip &>>$LOG && unzip -o /tmp
 Check $?
 
 Head "pass the EndPoints in Service File"
-sed -i -e "s/user_endpoint/users.${DNS}/" /home/ubuntu/login/systemd.service
+sed -i -e "s/user_endpoint/user.${DNS}/" /home/ubuntu/login/systemd.service
 Check $?
 
 Head "Setup the systemd Service"
