@@ -23,15 +23,15 @@ Head "Update Nginx Configuration"
 sed -i 's|/var/www/html|/var/www/html/sample/frontend/dist|g' /etc/nginx/sites-enabled/default
 Check $?
 
-Head "pass the end points in service file"
-cd /var/www/html/sample/frontend
-cd config
-export AUTH_API_ADDRESS=http://login.${DNS}:8080
-export TODOS_API_ADDRESS=http://todo.${DNS}:8080
-Check $?
 
 Head "update frontend configuration"
-cd /var/www/html/vue/frontend  && sudo npm install --unsafe-perm sass sass-loader node-sass wepy-compiler-sass &>>$LOG && npm run build &>>$LOG
+cd /var/www/html/sample/frontend  && sudo npm install --unsafe-perm sass sass-loader node-sass wepy-compiler-sass &>>$LOG && npm run build &>>$LOG
+Check $?
+
+Head "update the end points in service file"
+sed -i '32 s/127.0.0.1/login.$DNS/g' /var/www/html/sample/frontend/config/index.js
+sed -i '36 s/127.0.0.1/todo.$DNS/g' /var/www/html/sample/frontend/config/index.js
+sed -i '40 s/127.0.0.1/0.0.0.0/g' /var/www/html/sample/frontend/config/index.js
 Check $?
 
 head "Start Npm service"
