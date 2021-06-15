@@ -1,8 +1,9 @@
 
+
 #!/bin/bash
 
 source components/common.sh
-DN="eshwarzelarsoft.host"
+DNS="eshwarzelarsoft.host"
 OS_PREREQ
 
 Head "Installing Nginx"
@@ -17,21 +18,22 @@ Check $?
 DOWNLOAD_COMPONENT
 
 Head "Unzip Downloaded Archive"
-cd /var/www/html &&rm -rf vue && mkdir vue && cd vue && apt install unzip -y && unzip -o /tmp/frontend.zip &>>$LOG && rm -rf frontend.zip  && rm -rf frontend && mv frontend-main frontend && cd frontend
+cd /var/www/html && rm -rf  sample && mkdir sample && cd sample && apt install unzip &>>$LOG && unzip -o /tmp/frontend.zip &>>$LOG && rm -rf frontend.zip  && rm -rf frontend && mv frontend-main frontend && cd frontend
 Check $?
 
 Head "Update Nginx Configuration"
-sed -i 's|/var/www/html|/var/www/html/vue/frontend/dist|g' /etc/nginx/sites-enabled/default
+sed -i 's|/var/www/html|/var/www/html/sample/frontend/dist|g' /etc/nginx/sites-enabled/default
+Check $?
+
+Head "pass the end points in service file"
+cd /var/www/html/sample/frontend
+cd config
+export AUTH_API_ADDRESS=http://login.${DNS}:8080
+export TODOS_API_ADDRESS=http://todo.${DNS}:8080
 Check $?
 
 Head "update frontend configuration"
 cd /var/www/html/vue/frontend  && sudo npm install --unsafe-perm sass sass-loader node-sass wepy-compiler-sass &>>$LOG && npm run build &>>$LOG
-Check $?
-
-Head "update the end points in service file"
-sed -i '32 s/127.0.0.1/login.$DN/g' /var/www/html/vue/frontend/config/index.js
-sed -i '36 s/127.0.0.1/todo.$DN/g' /var/www/html/vue/frontend/config/index.js
-sed -i '40 s/127.0.0.1/0.0.0.0/g' /var/www/html/vue/frontend/config/index.js
 Check $?
 
 head "Start Npm service"
