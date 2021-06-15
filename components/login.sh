@@ -1,4 +1,5 @@
 
+
 #!/bin/bash
 
 source components/common.sh
@@ -19,6 +20,6 @@ Head "pass the EndPoints in Service File"
 sed -i -e "s/user_endpoint/users.${DNS}/" /home/ubuntu/login/systemd.service
 Check $?
 
-Head "Setuping  the systemd Service"
+Head "Setup the systemd Service"
 mv /home/ubuntu/login/systemd.service /etc/systemd/system/login.service && systemctl daemon-reload && systemctl start login && systemctl enable login &>>$LOG
 Check $?
