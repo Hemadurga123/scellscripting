@@ -3,7 +3,7 @@
 
 source components/common.sh
 OS_PREREQ
-#DN="eshwarzelarsoft.host"
+DNS="eshwarzelarsoft.host"
 
 Head "Installing npm"
 apt install npm -y &>>$LOG
