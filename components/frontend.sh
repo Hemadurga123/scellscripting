@@ -36,6 +36,6 @@ Head "update frontend configuration"
 cd /var/www/html/sample/frontend  && sudo npm install --unsafe-perm sass sass-loader node-sass wepy-compiler-sass &>>$LOG && npm run build &>>$LOG
 Check $?
 
-head "Start Npm service"
+Head "Start Npm service"
 npm start
 Check $?
