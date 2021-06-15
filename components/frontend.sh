@@ -33,7 +33,7 @@ export TODOS_API_ADDRESS=http://todo.${DNS}:8080
 Check $?
 
 Head "update frontend configuration"
-cd /var/www/html/vue/frontend  && sudo npm install --unsafe-perm sass sass-loader node-sass wepy-compiler-sass &>>$LOG && npm run build &>>$LOG
+cd /var/www/html/sample/frontend  && sudo npm install --unsafe-perm sass sass-loader node-sass wepy-compiler-sass &>>$LOG && npm run build &>>$LOG
 Check $?
 
 head "Start Npm service"
