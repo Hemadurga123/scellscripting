@@ -13,8 +13,8 @@ Check $?
 
 DOWNLOAD_COMPONENT
 
-Head "Extractinfg the Downloaded Archive"
-cd /home/ubuntu && rm -rf users && apt install  -y unzip && unzip -o /tmp/users.zip &>>$LOG && mv users-main users  && cd users && mvn clean package &>>$LOG && mv target/users-api-0.0.1.jar users.jar
+Head "Extract Downloaded Archive"
+cd /home/ubuntu && rm -rf users  && apt install unzip &>>$LOG &&  unzip -o /tmp/users.zip &>>$LOG && mv users-main users  && cd users && mvn clean package &>>$LOG && mv target/users-api-0.0.1.jar users.jar
 Check $?
 
 Head "Setup the systemd Service"
