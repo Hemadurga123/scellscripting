@@ -1,3 +1,4 @@
+  
 #!/bin/bash
 
 source components/common.sh
@@ -16,7 +17,7 @@ cd /home/ubuntu && rm -rf todo && unzip -o /tmp/todo.zip &>>$LOG && mv todo-main
 Check $?
 
 Head "pass the EndPoints in Service File"
-sed -i -e "s/redis-endpoint/172.31.84.201/" /home/ubuntu/todo/systemd.service
+sed -i -e "s/redis-endpoint/redis.${DNS}/" /home/ubuntu/todo/systemd.service
 Check $?
 
 
