@@ -1,26 +1,43 @@
-  
 #!/bin/bash
 
 source components/common.sh
+
+#Used export instead of service file
+DOMAIN=eshwarzelarsoft.host
+
 OS_PREREQ
-DNS="eshwarzelarsoft.host"
 
 Head "Installing npm"
 apt install npm -y &>>$LOG
-Check $?
+Stat $?
 
+Head "Adding user"
+deluser app
+useradd -m -s /bin/bash app &>>$LOG
+Stat $?
+
+Head "Changing directory"
+cd /home/app/
+Stat $?
+
+Head "Downloading Component"
+rm -rf todo
 DOWNLOAD_COMPONENT
+Stat $?
 
-Head "Extract Downloaded Archive"
-cd /home/ubuntu && rm -rf todo && apt install -y unzip &>>$LOG && unzip -o /tmp/todo.zip &>>$LOG && mv todo-main todo  && cd todo && npm install &>>$LOG
+cd todo/
 
-Check $?
+Head "Installing NPM"
+#npm install -y &>>$LOG
+npm install --save-dev  --unsafe-perm node-sass &>>$LOG
+Stat $?
 
 Head "pass the EndPoints in Service File"
-sed -i -e "s/redis-endpoint/redis.${DNS}/" /home/ubuntu/todo/systemd.service
-Check $?
-
+sed -i -e "s/REDIS_ENDPOINT/redis.eshwarzelarsoft.host/" systemd.service
+Stat $?
 
 Head "Setup the systemd Service"
-mv /home/ubuntu/todo/systemd.service /etc/systemd/system/todo.service && systemctl daemon-reload && systemctl start todo && systemctl enable todo &>>$LOG
-Check $?
+mv systemd.service /etc/systemd/system/todo.service &>>$LOG
+systemctl daemon-reload && systemctl start todo && systemctl enable todo &>>$LOG
+Stat $?
+© 2021 GitHub, Inc.

@@ -1,22 +1,44 @@
 #!/bin/bash
 
 source components/common.sh
+
 OS_PREREQ
 
-Head "Install java"
-apt-get install openjdk-8-jdk -y &>>$LOG
-Check $?
+Head "User adding"
+deluser app
+useradd -m -s /bin/bash app &>>$LOG
+cd /home/app/
+Stat $?
 
-Head "Install maven"
-apt install maven -y &>>$LOG
-Check $?
-
+Head "Downloading component"
+rm -rf users
 DOWNLOAD_COMPONENT
+apt update  &>>$LOG
+Stat $?
 
-Head "Extract Downloaded Archive"
-cd /home/ubuntu && rm -rf users  && apt install unzip &>>$LOG &&  unzip -o /tmp/users.zip &>>$LOG && mv users-main users  && cd users && mvn clean package &>>$LOG && mv target/users-api-0.0.1.jar users.jar
-Check $?
+Head "installing java"
+apt install openjdk-8-jre-headless -y &>>$LOG
+apt install openjdk-8-jdk-headless -y &>>$LOG
+Stat $?
+
+Head "exporting to java-home"
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 &>>$LOG
+Stat $?
+
+Head "installing maven"
+apt install maven -y &>>$LOG
+cd /home/app/users/
+Stat $?
+
+Head "installing maven packages"
+mvn clean package &>>$LOG
+Stat $?
+
+Head "pass the EndPoints in Service File"
+sed -i -e "s/REDIS_ENDPOINT/redis.eshwarzelarsoft.host/" systemd.service
+Stat $?
 
 Head "Setup the systemd Service"
-mv /home/ubuntu/users/systemd.service /etc/systemd/system/users.service && systemctl daemon-reload && systemctl start users && systemctl enable users &>>$LOG
-Check $?
+mv systemd.service /etc/systemd/system/users.service &>>$LOG
+systemctl daemon-reload && systemctl start users && systemctl enable users &>>$LOG
+Stat $?

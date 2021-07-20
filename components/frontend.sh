@@ -1,41 +1,45 @@
-
-
 #!/bin/bash
 
 source components/common.sh
-DNS="eshwarzelarsoft.host"
+
+#Used export instead of service file
+DOMAIN=eshwarzelarsoft.host
+
 OS_PREREQ
 
 Head "Installing Nginx"
 apt install nginx -y &>>$LOG
-systemctl restart nginx
-Check $?
+systemctl start nginx
+Stat $?
 
-Head "Install npm"
+Head "installing NPM"
 apt install npm -y &>>$LOG
-Check $?
+Stat $?
 
+Head "Create directory"
+cd /var/www/html/
+mkdir app  &>>$LOG
+cd app
+rm -rf frontend
+Stat $?
+
+Head "Downloading Component"
 DOWNLOAD_COMPONENT
+cd frontend
+Stat $?
 
-Head "Unzip Downloaded Archive"
-cd /var/www/html && rm -rf  sample && mkdir sample && cd sample && apt install unzip &>>$LOG && unzip -o /tmp/frontend.zip &>>$LOG && rm -rf frontend.zip  && rm -rf frontend && mv frontend-main frontend && cd frontend
-Check $?
+Head "run and build npm"
+npm install -g npm@latest &>>$LOG
+npm install shelljs &>>$LOG
+npm install --save-dev  --unsafe-perm node-sass &>>$LOG
+npm run build  &>>$LOG
+Stat $?
 
-Head "Update Nginx Configuration"
-sed -i 's|/var/www/html|/var/www/html/sample/frontend/dist|g' /etc/nginx/sites-enabled/default
-Check $?
+Head "Replacing domain names"
+sed -i '32 s/127.0.0.1/login.eshwarzelarsoft.host/g' /var/www/html/app/frontend/config/index.js
+sed -i '36 s/127.0.0.1/todo.eshwarzelarsoft.host/g' /var/www/html/app/frontend/config/index.js
+Stat $?
 
-Head "pass the end points in service file"
-cd /var/www/html/sample/frontend
-cd config
-export AUTH_API_ADDRESS=http://login.${DNS}:8080
-export TODOS_API_ADDRESS=http://todo.${DNS}:8080
-Check $?
-
-Head "update frontend configuration"
-cd /var/www/html/sample/frontend  && sudo npm install --unsafe-perm sass sass-loader node-sass wepy-compiler-sass &>>$LOG && npm run build &>>$LOG
-Check $?
-
-Head "Start Npm service"
+Head "Starting NPM"
 npm start
-Check $?
+Stat $?

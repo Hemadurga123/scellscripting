@@ -1,17 +1,17 @@
+
 #!/bin/bash
 
 source components/common.sh
 OS_PREREQ
 
-
-Head "Installing the  Redis"
+Head "Install Redis"
 apt install redis-server -y &>>$LOG
-Check $?
+Stat $?
 
-Head "Updating the  Redis Listen Address"
+Head "Update Redis Listen Address"
 sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/redis/redis.conf
-Check $?
+Stat $?
 
-Head "Starting the  Redis Service"
+Head "Start Redis Service"
 systemctl restart redis
-Check $?
+Stat $?
